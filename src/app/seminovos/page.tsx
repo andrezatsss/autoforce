@@ -1,15 +1,19 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { BadgeDollarSign, CalendarDays, CarFront, Check, Gauge, Search, SlidersVertical } from "lucide-react";
 
 const FIGMA_ASSET = "https://www.figma.com/api/mcp/asset/cbd494da-0bfa-4d11-ac85-7046610af8e7";
 
 const vehicles = [
-  { brand:"Toyota", model:"Corolla", version:"Altis Premium 2.0 Flex", year:"2023/2024", km:"21.840 km", transmission:"Automático", tags:["ÚNICO DONO","BAIXA KM"], oldPrice:"R$ 164.000", price:"R$ 142.900", image:`${FIGMA_ASSET}/6b691.png`, count:"1/8", slug:"toyota-corolla-altis-premium-2024" },
+  { brand:"Toyota", model:"Corolla", version:"Altis Premium 2.0 Flex", year:"2023/2024", km:"21.840 km", transmission:"Automático", tags:["ÚNICO DONO","BAIXA KM"], oldPrice:"R$ 164.000", price:"R$ 142.900", image:`${FIGMA_ASSET}/3f23c.png`, count:"1/8", slug:"toyota-corolla-altis-premium-2024" },
   { brand:"Toyota", model:"Corolla", version:"XEi 2.0 Flex", year:"2023/2024", km:"32.410 km", transmission:"Automático", tags:["GARANTIA","REVISADO"], oldPrice:"R$ 159.000", price:"R$ 139.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/6", slug:"toyota-corolla-xei-2024" },
   { brand:"Toyota", model:"Corolla", version:"GLi 2.0 Flex", year:"2022/2023", km:"44.180 km", transmission:"Automático", tags:["LAUDO APROVADO"], oldPrice:"R$ 149.000", price:"R$ 132.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/7", slug:"toyota-corolla-gli-2023" },
+  { brand:"Toyota", model:"Corolla", version:"GR-S 2.0 Flex", year:"2023/2024", km:"28.750 km", transmission:"Automático", tags:["BAIXA KM","REVISADO"], oldPrice:"R$ 158.900", price:"R$ 146.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/5", slug:"toyota-corolla-grs-2024" },
+  { brand:"Toyota", model:"Corolla Cross", version:"XRE 2.0 Flex", year:"2023/2024", km:"35.600 km", transmission:"Automático", tags:["ÚNICO DONO"], oldPrice:"R$ 172.900", price:"R$ 159.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/9", slug:"toyota-corolla-cross-xre-2024" },
+  { brand:"Toyota", model:"Yaris Sedan", version:"XS 1.5 Flex", year:"2022/2023", km:"41.900 km", transmission:"Automático", tags:["LAUDO APROVADO"], oldPrice:"R$ 109.900", price:"R$ 99.900", image:`${FIGMA_ASSET}/3f23c.png`, count:"1/7", slug:"toyota-yaris-sedan-xs-2023" },
+  { brand:"Toyota", model:"Corolla", version:"Altis Hybrid", year:"2022/2023", km:"39.200 km", transmission:"Automático", tags:["GARANTIA","ÚNICO DONO"], oldPrice:"R$ 169.900", price:"R$ 156.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/6", slug:"toyota-corolla-altis-hybrid-2023" },
 ];
 
 const brands = [
@@ -35,17 +39,38 @@ const filterSections = [
 export default function SeminovosPage() {
   const [filtersOpen, setFiltersOpen] = useState(true);
   const [topMenu, setTopMenu] = useState<"price" | "brand" | null>(null);
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [appliedFilters, setAppliedFilters] = useState(["Toyota","Corolla"]);
+  const [pageNumber, setPageNumber] = useState(1);
   const filtersRef = useRef<HTMLElement>(null);
+  const pageSize = 6;
+  const totalPages = Math.ceil(vehicles.length / pageSize);
+  const visibleVehicles = vehicles.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+
+  useEffect(() => {
+    const closeTopMenuOnScroll = () => setTopMenu(null);
+    window.addEventListener("scroll", closeTopMenuOnScroll, { passive: true });
+    return () => window.removeEventListener("scroll", closeTopMenuOnScroll);
+  }, []);
 
   const toggleTopMenu = (menu: "price" | "brand") => {
     setTopMenu(current => current === menu ? null : menu);
   };
 
   const openFilters = () => {
+    setTopMenu(null);
+    if (window.matchMedia("(max-width: 780px)").matches) {
+      setMobileFiltersOpen(true);
+      return;
+    }
     setFiltersOpen(true);
     window.setTimeout(() => {
       filtersRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
     }, 0);
+  };
+
+  const removeAppliedFilter = (filter: string) => {
+    setAppliedFilters(current => current.filter(item => item !== filter));
   };
   return (
     <div className="mares-page">
@@ -137,12 +162,13 @@ export default function SeminovosPage() {
 
           <div className="results-head">
             <div className="result-count">
-              <b>7 veículos encontrados</b>
+              <b>{vehicles.length} veículos encontrados</b>
               <span>Opções selecionadas para você</span>
             </div>
             <div className="applied">
-              <button>Toyota <span>×</span></button>
-              <button>Corolla <span>×</span></button>
+              {appliedFilters.map(filter => (
+                <button key={filter} onClick={()=>removeAppliedFilter(filter)}>{filter} <span>×</span></button>
+              ))}
             </div>
             <label className="sort">Ordenar por <select defaultValue="relevantes"><option value="relevantes">Mais relevantes</option></select></label>
           </div>
@@ -170,7 +196,7 @@ export default function SeminovosPage() {
             )}
 
             <div className="vehicle-grid">
-              {vehicles.map((v)=>(
+              {visibleVehicles.map((v)=>(
                 <article className="vehicle-card" key={v.slug}>
                   <div className="vehicle-image">
                     <img src={v.image} alt={`${v.brand} ${v.model}`} />
@@ -201,8 +227,41 @@ export default function SeminovosPage() {
               ))}
             </div>
           </div>
+
+          <nav className="pagination" aria-label="Paginação de veículos">
+            <button onClick={()=>setPageNumber(p=>Math.max(1,p-1))} disabled={pageNumber===1}>←</button>
+            {Array.from({length:totalPages},(_,i)=>i+1).map(n=>(
+              <button key={n} className={pageNumber===n?"active":""} onClick={()=>setPageNumber(n)}>{n}</button>
+            ))}
+            <button onClick={()=>setPageNumber(p=>Math.min(totalPages,p+1))} disabled={pageNumber===totalPages}>→</button>
+          </nav>
         </section>
       </main>
+
+      {mobileFiltersOpen && (
+        <div className="mobile-filter-overlay" role="dialog" aria-modal="true" aria-label="Filtros">
+          <aside className="mobile-filter-drawer">
+            <div className="sidebar-title">
+              <div><span>Refine sua busca</span><h2>Filtros</h2></div>
+              <button onClick={()=>setMobileFiltersOpen(false)}>×</button>
+            </div>
+            <div className="mobile-filter-scroll">
+              {filterSections.map(([title,items])=>(
+                <div className="filter-section" key={title}>
+                  <div className="filter-title"><b>{title}</b><span>{items.length ? "−" : "+"}</span></div>
+                  {items.map((item,i)=>(
+                    <label className="check-row" key={item}>
+                      <input type="checkbox" defaultChecked={(title==="Marca"||title==="Preço") && i===0}/>
+                      <span>{item}</span><small>180</small>
+                    </label>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <button className="apply-button mobile-apply" onClick={()=>setMobileFiltersOpen(false)}>Aplicar filtros</button>
+          </aside>
+        </div>
+      )}
     </div>
   );
 }
