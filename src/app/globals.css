@@ -283,3 +283,83 @@
 @media(max-width:780px){
   .top-popover{position:fixed;left:50%;top:130px;transform:translateX(-50%)}
 }
+
+
+/* Vehicle detail — Figma node 11:13154 */
+.detail-page{background:#fbfcfb;color:#172b31;min-height:100vh}
+.detail-main{padding-bottom:64px}
+.detail-back{height:76px;display:flex;align-items:center}
+.detail-back a{font:700 11px/16px "DM Sans";color:#123a45}
+.detail-hero{display:grid;grid-template-columns:734.828px 399.172px;gap:46px;height:607.125px}
+.detail-gallery{width:734.828px}
+.gallery-main{height:483.438px;position:relative;overflow:hidden;border-radius:12px;background:#eef2f2}
+.gallery-main img{width:100%;height:100%;object-fit:cover;display:block}
+.gallery-main>span{position:absolute;right:15px;bottom:16px;padding:7px 10px;border-radius:6px;background:rgba(10,41,50,.75);color:white;font:400 9px/14px "DM Sans"}
+.gallery-thumbs{height:123.688px;padding-top:10px;display:grid;grid-template-columns:repeat(4,176.203px);gap:10px}
+.gallery-thumbs button{width:176.203px;height:113.688px;border:0;background:transparent;padding:0;border-radius:8px;overflow:hidden}
+.gallery-thumbs button.active{outline:2px solid #0027d4;outline-offset:-2px}
+.gallery-thumbs img{width:100%;height:100%;object-fit:cover;display:block}
+.detail-summary{width:399.172px;padding-top:14px}
+.detail-brand{font:700 9px/13px "DM Sans";letter-spacing:.72px;color:#66767a}
+.detail-summary h1{margin:0;height:47px;font-size:34px;line-height:47px;color:#123a45;font-weight:800}
+.detail-version{height:24px;margin:0;font:400 12px/24px "DM Sans";color:#66767a}
+.detail-tags{height:38px;display:flex;gap:8px;align-items:flex-end}
+.detail-tags span{height:24px;padding:6px 10px;border-radius:6px;background:#f1f3ff;color:#0027d4;font-size:9px;font-weight:700}
+.spec-grid{height:219px;padding-top:24px;display:grid;grid-template-columns:repeat(3,125.81px);grid-template-rows:36px 51px 36px;column-gap:9px;row-gap:24px}
+.spec-item{display:flex;gap:8px;align-items:center;min-width:0}
+.spec-item svg{width:24px;height:24px;color:#0027d4;stroke-width:1.7;flex:0 0 24px}
+.spec-item>div{min-width:0;display:flex;flex-direction:column}
+.spec-item span{font:400 10px/18px "DM Sans";color:#66767a}
+.spec-item b{font:700 11px/17px "DM Sans";color:#172b31;white-space:normal}
+.detail-price{height:105px;padding-top:47px;display:flex;flex-direction:column}
+.detail-price small{font:400 9px/14px "DM Sans";color:#66767a}
+.detail-price strong{font-size:28px;line-height:44px;color:#123a45}
+.detail-whatsapp{height:50px;margin-top:18px;border-radius:10px;background:#0027d4;color:#fff;display:flex;align-items:center;justify-content:center;gap:9px;font-size:13px;font-weight:700}
+.detail-actions{height:42px;margin-top:10px;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.detail-actions button{border:1px solid #dbe2e1;background:#fff;border-radius:9px;color:#123a45;font:600 10px "DM Sans";display:flex;align-items:center;justify-content:center;gap:7px}
+.detail-note{text-align:center;margin:10px 0 0;font:400 10px/15px "DM Sans";color:#66767a}
+.detail-highlights{height:300px;padding-top:54px}
+.detail-highlights>h2{height:40px;margin:0 34px;font-size:28px;line-height:40px;color:#123a45}
+.highlight-grid{height:146px;margin:20px 34px 0;display:grid;grid-template-columns:repeat(4,1fr)}
+.highlight-grid article{height:126px;padding:12px 24px 0;border-right:1px solid #e2e7e6}
+.highlight-grid article:first-child{padding-left:0}.highlight-grid article:last-child{border-right:0}
+.highlight-grid svg{width:24px;height:24px;color:#0027d4}
+.highlight-grid h3{font-size:13px;margin:20px 0 0;color:#123a45}
+.highlight-grid p{font:400 11px/17px "DM Sans";color:#66767a;margin:0}
+.detail-section{border-top:1px solid #e2e7e6}
+.vehicle-about{height:416.188px;padding-top:54px}
+.section-heading{width:640px}
+.section-heading>span{font:700 9px/13px "DM Sans";letter-spacing:.72px;color:#66767a}
+.section-heading h2{font-size:28px;line-height:40px;margin:0;color:#123a45}
+.section-heading p{font:400 13px/21px "DM Sans";color:#66767a;margin:0}
+.about-grid{margin-top:20px;display:grid;grid-template-columns:446.391px 669.609px;gap:56px}
+.basic-data{height:253.188px;margin:0;display:grid;grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(2,1fr)}
+.basic-data div{padding:42px 4px 0;border-bottom:1px solid #e2e7e6}.basic-data div:nth-child(even){padding-left:20px}
+.basic-data dt{font:400 10px/14px "DM Sans";color:#66767a}.basic-data dd{margin:0;font-size:14px;line-height:27px;color:#123a45;font-weight:700}
+.equipment-list{height:253px}
+.equipment-row{border-bottom:1px solid #e2e7e6}
+.equipment-row button{width:100%;height:54px;border:0;background:transparent;display:flex;justify-content:space-between;align-items:center;padding:0 4px;font-size:12px;color:#123a45}
+.equipment-row p{height:33px;margin:0;padding:0 4px;font:400 11px/20px "DM Sans";color:#66767a}
+.history-section{height:431px;margin-top:0;border-top:1px solid #e2e7e6;padding:97px 47px 0;position:relative;display:grid;grid-template-columns:363px 645px;column-gap:78px}
+.history-copy h2{font-size:28px;line-height:34px;margin:0;color:#123a45}.history-copy p{font:400 13px/21px "DM Sans";color:#66767a}
+.history-timeline{height:232px;position:relative}.history-timeline:before{content:"";position:absolute;left:6px;top:13px;bottom:13px;width:2px;background:#cbd4f6}
+.history-timeline>div{height:58px;display:grid;grid-template-columns:30px 72px 1fr;align-items:start;position:relative}
+.history-timeline i{width:14px;height:14px;border-radius:50%;background:#0027d4;margin-top:5px;z-index:1}
+.history-timeline span{font:400 12px/18px "DM Sans";color:#66767a}.history-timeline b{font-size:12px;line-height:18px;color:#123a45}
+.history-footer{position:absolute;left:47px;right:47px;bottom:37px;height:35px;border-top:1px solid #e2e7e6;display:grid;grid-template-columns:1fr 1fr;align-items:end;font:400 10px/14px "DM Sans";color:#66767a}
+.history-footer span{display:flex;justify-content:space-between}.history-footer span:last-child{padding-left:29px}.history-footer b,.history-footer a{color:#0027d4}
+.buying{height:262px;padding-top:54px}
+.buy-grid{height:144px;padding-top:20px;display:grid;grid-template-columns:1fr 1fr}
+.buy-grid article{height:122px;display:flex;gap:18px;align-items:flex-start;padding-top:22px}.buy-grid article+article{padding-left:29px;border-left:1px solid #e2e7e6}
+.buy-grid svg{width:36px;height:36px;color:#0027d4}.buy-grid h3{font-size:15px;line-height:22px;margin:0;color:#123a45}.buy-grid p{font:400 11px/16px "DM Sans";color:#66767a;margin:0}.buy-grid a{display:inline-block;margin-top:7px;font:700 10px/14px "DM Sans";color:#0027d4}
+.related{min-height:610px;padding-top:54px}
+.related-grid{display:grid;grid-template-columns:repeat(3,377.333px);gap:24px;margin-top:20px}
+.related-card{height:476.203px;border:1px solid #dbe2e1;background:#fff;border-radius:12px;overflow:hidden}.related-card>img{width:100%;height:195.703px;object-fit:cover}.related-card>div{padding:16px}.related-card span{font:700 9px/14px "DM Sans";text-transform:uppercase;color:#66767a}.related-card h3{font-size:21px;line-height:32px;margin:4px 0 0;color:#123a45}.related-card p{font:400 11px/17px "DM Sans";color:#66767a;margin:0}.related-card strong{display:block;margin-top:74px;font-size:18px;color:#123a45}.related-card a{float:right;margin-top:-20px;font:700 10px "DM Sans";color:#0027d4}
+
+@media(max-width:1000px){
+ .detail-hero{grid-template-columns:1fr;height:auto}.detail-gallery,.detail-summary{width:100%}.gallery-thumbs{grid-template-columns:repeat(4,1fr)}.gallery-thumbs button{width:auto}
+ .spec-grid{grid-template-columns:repeat(3,1fr)}
+ .highlight-grid{grid-template-columns:repeat(2,1fr);height:auto}.detail-highlights{height:auto;padding-bottom:40px}
+ .vehicle-about{height:auto;padding-bottom:40px}.about-grid{grid-template-columns:1fr}.history-section{height:auto;grid-template-columns:1fr;padding-bottom:100px}.history-footer{position:static;grid-column:1;margin-top:20px}
+ .related-grid{grid-template-columns:1fr}.related-card{width:100%}
+}
