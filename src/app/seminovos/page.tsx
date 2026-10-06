@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { BadgeDollarSign, CalendarDays, CarFront, Check, Gauge, Search, SlidersVertical } from "lucide-react";
+import { CalendarDays, Check, Gauge, Search, SlidersVertical, MessageCircle } from "lucide-react";
 
 const FIGMA_ASSET = "https://www.figma.com/api/mcp/asset/cbd494da-0bfa-4d11-ac85-7046610af8e7";
 
@@ -42,10 +42,19 @@ export default function SeminovosPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [appliedFilters, setAppliedFilters] = useState(["Toyota","Corolla"]);
   const [pageNumber, setPageNumber] = useState(1);
+  const [priceMin, setPriceMin] = useState(90000);
+  const [priceMax, setPriceMax] = useState(180000);
+  const [belowFipe, setBelowFipe] = useState(false);
   const filtersRef = useRef<HTMLElement>(null);
   const pageSize = 6;
-  const totalPages = Math.ceil(vehicles.length / pageSize);
-  const visibleVehicles = vehicles.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
+  const totalPages = Math.max(1, Math.ceil(filteredVehicles.length / pageSize));
+  const filteredVehicles = vehicles.filter((vehicle) => {
+    const numericPrice = Number(vehicle.price.replace(/\D/g, ""));
+    const inRange = numericPrice >= priceMin && numericPrice <= priceMax;
+    const belowFipeMatch = !belowFipe || Number(vehicle.price.replace(/\D/g, "")) < Number(vehicle.oldPrice.replace(/\D/g, ""));
+    return inRange && belowFipeMatch;
+  });
+  const visibleVehicles = filteredVehicles.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 
   useEffect(() => {
     const closeTopMenuOnScroll = () => setTopMenu(null);
@@ -86,7 +95,7 @@ export default function SeminovosPage() {
             <a className="finance" href="#">Simular Financiamento <span>⌄</span></a>
             <a href="#">Nossas lojas</a>
           </nav>
-          <a className="talk-button" href="#"><span className="wa">◉</span> Fale com a gente</a>
+          <a className="talk-button" href="#"><MessageCircle size={19} aria-hidden="true" /> Fale com a gente</a>
         </div>
       </header>
 
@@ -104,23 +113,24 @@ export default function SeminovosPage() {
             <div className="quick-filters">
               <div className="top-filter-anchor">
                 <button className={`pill ${topMenu === "price" ? "selected" : ""}`} onClick={()=>toggleTopMenu("price")} aria-expanded={topMenu === "price"}>
-                  <BadgeDollarSign className="pill-icon" aria-hidden="true" />Preço <span>⌄</span>
+                  Preço <span>⌄</span>
                 </button>
                 {topMenu === "price" && (
                   <div className="top-popover price-popover">
                     <div className="popover-title"><b>Preço</b><span>+</span></div>
-                    <div className="price-slider" aria-hidden="true">
-                      <span className="range-track-muted" />
-                      <span className="range-track-active" />
-                      <i className="range-knob left" /><i className="range-knob right" />
+                    <div className="price-slider">
+                      <div className="dual-range">
+                        <input aria-label="Preço mínimo" type="range" min="50000" max="250000" step="5000" value={priceMin} onChange={(e)=>{setPriceMin(Math.min(Number(e.target.value), priceMax-5000));setPageNumber(1)}} />
+                        <input aria-label="Preço máximo" type="range" min="50000" max="250000" step="5000" value={priceMax} onChange={(e)=>{setPriceMax(Math.max(Number(e.target.value), priceMin+5000));setPageNumber(1)}} />
+                      </div>
                     </div>
                     <div className="price-fields">
-                      <label><input placeholder="Preço mínimo" /></label>
-                      <label><input placeholder="Preço máximo" /></label>
+                      <label><span>R$</span><input inputMode="numeric" value={priceMin.toLocaleString("pt-BR")} onFocus={(e)=>e.currentTarget.select()} onChange={(e)=>{const n=Number(e.target.value.replace(/\D/g,"")); if(!Number.isNaN(n)){setPriceMin(Math.min(n,priceMax-5000));setPageNumber(1)}}} /></label>
+                      <label><span>R$</span><input inputMode="numeric" value={priceMax.toLocaleString("pt-BR")} onFocus={(e)=>e.currentTarget.select()} onChange={(e)=>{const n=Number(e.target.value.replace(/\D/g,"")); if(!Number.isNaN(n)){setPriceMax(Math.max(n,priceMin+5000));setPageNumber(1)}}} /></label>
                     </div>
                     <div className="fipe-row">
                       <div><b>Abaixo da Fipe</b><span>Oportunidades com o valor abaixo da tabela.</span></div>
-                      <button className="switch" aria-label="Abaixo da Fipe"><i /></button>
+                      <button className={`switch ${belowFipe ? "on" : ""}`} aria-pressed={belowFipe} aria-label="Abaixo da Fipe" onClick={()=>{setBelowFipe(v=>!v);setPageNumber(1)}}><i /></button>
                     </div>
                   </div>
                 )}
@@ -128,7 +138,7 @@ export default function SeminovosPage() {
 
               <div className="top-filter-anchor">
                 <button className={`pill ${topMenu === "brand" ? "selected" : ""}`} onClick={()=>toggleTopMenu("brand")} aria-expanded={topMenu === "brand"}>
-                  <CarFront className="pill-icon" aria-hidden="true" />Marca <span>⌄</span>
+                  Marca <span>⌄</span>
                 </button>
                 {topMenu === "brand" && (
                   <div className="top-popover brand-popover">
@@ -146,7 +156,7 @@ export default function SeminovosPage() {
                 )}
               </div>
 
-              <button className="pill" onClick={openFilters}><SlidersVertical className="pill-icon" aria-hidden="true" />Mais filtros</button>
+              <button className="pill" onClick={openFilters}><SlidersVertical className="pill-icon" aria-hidden="true" />Filtros</button>
             </div>
 
             <button className="stock-button">Buscar no estoque <span>→</span></button>
@@ -162,7 +172,7 @@ export default function SeminovosPage() {
 
           <div className="results-head">
             <div className="result-count">
-              <b>{vehicles.length} veículos encontrados</b>
+              <b>{filteredVehicles.length} veículos encontrados</b>
               <span>Opções selecionadas para você</span>
             </div>
             <div className="applied">
