@@ -10,10 +10,10 @@ import {
 } from "lucide-react";
 
 const gallery = [
-  "https://www.figma.com/api/mcp/asset/d4d139db-a8cd-4eef-becc-5237e9078297",
-  "https://www.figma.com/api/mcp/asset/ff6b7b97-0de0-4fab-9181-f2d82855bd17",
-  "https://www.figma.com/api/mcp/asset/f19f2063-72c3-49be-ac6e-a2c005ed47d2",
-  "https://www.figma.com/api/mcp/asset/62db1edd-bffa-48ea-80da-e26beee9bf6b",
+  "https://www.figma.com/api/mcp/asset/5b1a45e2-799c-4976-8253-31a2bfb8a72d.png",
+  "https://www.figma.com/api/mcp/asset/dac5d1f5-dc6a-43ff-b741-99916999579c.png",
+  "https://www.figma.com/api/mcp/asset/674e7abf-6a50-4720-90b1-aae9d6090909.png",
+  "https://www.figma.com/api/mcp/asset/6b20936f-7774-4eee-837e-80989d56d4dc.png",
 ];
 
 const vehicleMap = {
@@ -124,7 +124,7 @@ export default function VehicleDetailPage() {
           <h2>Destaques</h2>
           <div className="highlight-grid">
             <article><UserRound/><h3>Único dono</h3><p>Histórico mais simples e fácil de acompanhar.</p></article>
-            <article><Gauge/><h3>21.840 km</h3><p>Quilometragem abaixo da média para o ano.</p></article>
+            <article><Gauge/><h3>{data.km}</h3><p>Quilometragem abaixo da média para o ano.</p></article>
             <article><Wrench/><h3>Revisado na concessionária</h3><p>Histórico de manutenção disponível.</p></article>
             <article><ShieldCheck/><h3>Laudo aprovado</h3><p>Estrutura e identificação verificadas.</p></article>
           </div>
