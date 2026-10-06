@@ -12,6 +12,18 @@ const vehicles = [
   { brand:"Toyota", model:"Corolla", version:"GLi 2.0 Flex", year:"2022/2023", km:"44.180 km", transmission:"Automático", tags:["LAUDO APROVADO"], oldPrice:"R$ 149.000", price:"R$ 132.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/7", slug:"toyota-corolla-gli-2023" },
 ];
 
+const brands = [
+  ["Volkswagen","https://www.figma.com/api/mcp/asset/ee426edf-ac82-4bef-ab71-6f65f79218f3/34e03.png"],
+  ["Honda","https://www.figma.com/api/mcp/asset/ee426edf-ac82-4bef-ab71-6f65f79218f3/ba18e.png"],
+  ["Chevrolet","https://www.figma.com/api/mcp/asset/ee426edf-ac82-4bef-ab71-6f65f79218f3/c267b.png"],
+  ["Toyota","https://www.figma.com/api/mcp/asset/ee426edf-ac82-4bef-ab71-6f65f79218f3/bb8c0.png"],
+  ["Fiat","https://www.figma.com/api/mcp/asset/ee426edf-ac82-4bef-ab71-6f65f79218f3/6278f.png"],
+  ["Hyundai","https://www.figma.com/api/mcp/asset/ee426edf-ac82-4bef-ab71-6f65f79218f3/7b7df.png"],
+  ["Ford","https://www.figma.com/api/mcp/asset/ee426edf-ac82-4bef-ab71-6f65f79218f3/75f9c.png"],
+  ["Mitsubishi","https://www.figma.com/api/mcp/asset/ee426edf-ac82-4bef-ab71-6f65f79218f3/77739.png"],
+  ["Jeep","https://www.figma.com/api/mcp/asset/ee426edf-ac82-4bef-ab71-6f65f79218f3/25e57.png"],
+] as const;
+
 const filterSections = [
   ["Marca", ["Toyota"]],
   ["Modelo", []],
@@ -22,7 +34,12 @@ const filterSections = [
 
 export default function SeminovosPage() {
   const [filtersOpen, setFiltersOpen] = useState(true);
+  const [topMenu, setTopMenu] = useState<"price" | "brand" | null>(null);
   const filtersRef = useRef<HTMLElement>(null);
+
+  const toggleTopMenu = (menu: "price" | "brand") => {
+    setTopMenu(current => current === menu ? null : menu);
+  };
 
   const openFilters = () => {
     setFiltersOpen(true);
@@ -60,8 +77,50 @@ export default function SeminovosPage() {
             </label>
 
             <div className="quick-filters">
-              <button className="pill"><BadgeDollarSign className="pill-icon" aria-hidden="true" />Preço <span>⌄</span></button>
-              <button className="pill selected"><CarFront className="pill-icon" aria-hidden="true" />Marca <span>⌄</span></button>
+              <div className="top-filter-anchor">
+                <button className={`pill ${topMenu === "price" ? "selected" : ""}`} onClick={()=>toggleTopMenu("price")} aria-expanded={topMenu === "price"}>
+                  <BadgeDollarSign className="pill-icon" aria-hidden="true" />Preço <span>⌄</span>
+                </button>
+                {topMenu === "price" && (
+                  <div className="top-popover price-popover">
+                    <div className="popover-title"><b>Preço</b><span>+</span></div>
+                    <div className="price-slider" aria-hidden="true">
+                      <span className="range-track-muted" />
+                      <span className="range-track-active" />
+                      <i className="range-knob left" /><i className="range-knob right" />
+                    </div>
+                    <div className="price-fields">
+                      <label><input placeholder="Preço mínimo" /></label>
+                      <label><input placeholder="Preço máximo" /></label>
+                    </div>
+                    <div className="fipe-row">
+                      <div><b>Abaixo da Fipe</b><span>Oportunidades com o valor abaixo da tabela.</span></div>
+                      <button className="switch" aria-label="Abaixo da Fipe"><i /></button>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="top-filter-anchor">
+                <button className={`pill ${topMenu === "brand" ? "selected" : ""}`} onClick={()=>toggleTopMenu("brand")} aria-expanded={topMenu === "brand"}>
+                  <CarFront className="pill-icon" aria-hidden="true" />Marca <span>⌄</span>
+                </button>
+                {topMenu === "brand" && (
+                  <div className="top-popover brand-popover">
+                    <div className="popover-title"><b>Marca</b><span>−</span></div>
+                    <label className="brand-search"><Search aria-hidden="true" /><input placeholder="Buscar por marca" /></label>
+                    <div className="brand-grid">
+                      {brands.map(([name,image])=>(
+                        <button className="brand-option" key={name}>
+                          <span className="brand-logo"><img src={image} alt="" /></span>
+                          <span>{name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <button className="pill" onClick={openFilters}><SlidersVertical className="pill-icon" aria-hidden="true" />Mais filtros</button>
             </div>
 
