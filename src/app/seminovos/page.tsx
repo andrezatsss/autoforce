@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { BadgeDollarSign, CalendarDays, CarFront, Check, ChevronDown, Gauge, SlidersVertical, MessageCircle } from "lucide-react";
+import { BadgeDollarSign, CalendarDays, CarFront, Check, ChevronDown, Gauge, Search, SlidersVertical, MessageCircle } from "lucide-react";
 
 const FIGMA_ASSET = "https://www.figma.com/api/mcp/asset/cbd494da-0bfa-4d11-ac85-7046610af8e7";
 
