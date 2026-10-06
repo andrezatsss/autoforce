@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { CalendarDays, Check, Gauge, Search, SlidersVertical, MessageCircle } from "lucide-react";
+import { BadgeDollarSign, CalendarDays, CarFront, Check, ChevronDown, Gauge, SlidersVertical, MessageCircle } from "lucide-react";
 
 const FIGMA_ASSET = "https://www.figma.com/api/mcp/asset/cbd494da-0bfa-4d11-ac85-7046610af8e7";
 
@@ -10,10 +10,10 @@ const vehicles = [
   { brand:"Toyota", model:"Corolla", version:"Altis Premium 2.0 Flex", year:"2023/2024", km:"21.840 km", transmission:"Automático", tags:["ÚNICO DONO","BAIXA KM"], oldPrice:"R$ 164.000", price:"R$ 142.900", image:`${FIGMA_ASSET}/3f23c.png`, count:"1/8", slug:"toyota-corolla-altis-premium-2024" },
   { brand:"Toyota", model:"Corolla", version:"XEi 2.0 Flex", year:"2023/2024", km:"32.410 km", transmission:"Automático", tags:["GARANTIA","REVISADO"], oldPrice:"R$ 159.000", price:"R$ 139.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/6", slug:"toyota-corolla-xei-2024" },
   { brand:"Toyota", model:"Corolla", version:"GLi 2.0 Flex", year:"2022/2023", km:"44.180 km", transmission:"Automático", tags:["LAUDO APROVADO"], oldPrice:"R$ 149.000", price:"R$ 132.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/7", slug:"toyota-corolla-gli-2023" },
-  { brand:"Toyota", model:"Corolla", version:"GR-S 2.0 Flex", year:"2023/2024", km:"28.750 km", transmission:"Automático", tags:["BAIXA KM","REVISADO"], oldPrice:"R$ 158.900", price:"R$ 146.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/5", slug:"toyota-corolla-grs-2024" },
-  { brand:"Toyota", model:"Corolla Cross", version:"XRE 2.0 Flex", year:"2023/2024", km:"35.600 km", transmission:"Automático", tags:["ÚNICO DONO"], oldPrice:"R$ 172.900", price:"R$ 159.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/9", slug:"toyota-corolla-cross-xre-2024" },
-  { brand:"Toyota", model:"Yaris Sedan", version:"XS 1.5 Flex", year:"2022/2023", km:"41.900 km", transmission:"Automático", tags:["LAUDO APROVADO"], oldPrice:"R$ 109.900", price:"R$ 99.900", image:`${FIGMA_ASSET}/3f23c.png`, count:"1/7", slug:"toyota-yaris-sedan-xs-2023" },
-  { brand:"Toyota", model:"Corolla", version:"Altis Hybrid", year:"2022/2023", km:"39.200 km", transmission:"Automático", tags:["GARANTIA","ÚNICO DONO"], oldPrice:"R$ 169.900", price:"R$ 156.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/6", slug:"toyota-corolla-altis-hybrid-2023" },
+  { brand:"Honda", model:"Civic", version:"Touring 1.5 Turbo", year:"2023/2024", km:"28.750 km", transmission:"Automático", tags:["BAIXA KM","REVISADO"], oldPrice:"R$ 178.900", price:"R$ 166.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/5", slug:"honda-civic-touring-2024" },
+  { brand:"Volkswagen", model:"T-Cross", version:"Highline 250 TSI", year:"2023/2024", km:"35.600 km", transmission:"Automático", tags:["ÚNICO DONO"], oldPrice:"R$ 154.900", price:"R$ 143.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/9", slug:"volkswagen-t-cross-highline-2024" },
+  { brand:"Chevrolet", model:"Tracker", version:"Premier 1.2 Turbo", year:"2022/2023", km:"41.900 km", transmission:"Automático", tags:["LAUDO APROVADO"], oldPrice:"R$ 129.900", price:"R$ 119.900", image:`${FIGMA_ASSET}/3f23c.png`, count:"1/7", slug:"chevrolet-tracker-premier-2023" },
+  { brand:"Hyundai", model:"HB20S", version:"Platinum 1.0 TGDI", year:"2023/2024", km:"39.200 km", transmission:"Automático", tags:["GARANTIA","ÚNICO DONO"], oldPrice:"R$ 112.900", price:"R$ 104.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/6", slug:"hyundai-hb20s-platinum-2024" },
 ];
 
 const brands = [
@@ -42,8 +42,8 @@ export default function SeminovosPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [appliedFilters, setAppliedFilters] = useState(["Toyota","Corolla"]);
   const [pageNumber, setPageNumber] = useState(1);
-  const [priceMin, setPriceMin] = useState(90000);
-  const [priceMax, setPriceMax] = useState(180000);
+  const [priceMin, setPriceMin] = useState(50000);
+  const [priceMax, setPriceMax] = useState(240000);
   const [belowFipe, setBelowFipe] = useState(false);
   const filtersRef = useRef<HTMLElement>(null);
   const pageSize = 6;
@@ -54,6 +54,9 @@ export default function SeminovosPage() {
     return inRange && belowFipeMatch;
   });
   const totalPages = Math.max(1, Math.ceil(filteredVehicles.length / pageSize));
+  const priceApplied = priceMin !== 50000 || priceMax !== 240000 || belowFipe;
+  const minPct = ((priceMin - 50000) / 200000) * 100;
+  const maxPct = ((priceMax - 50000) / 200000) * 100;
   const visibleVehicles = filteredVehicles.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 
   useEffect(() => {
@@ -112,14 +115,18 @@ export default function SeminovosPage() {
 
             <div className="quick-filters">
               <div className="top-filter-anchor">
-                <button className={`pill ${topMenu === "price" ? "selected" : ""}`} onClick={()=>toggleTopMenu("price")} aria-expanded={topMenu === "price"}>
-                  Preço <span>⌄</span>
+                <button className={`pill ${topMenu === "price" || priceApplied ? "selected" : ""}`} onClick={()=>toggleTopMenu("price")} aria-expanded={topMenu === "price"}>
+                  <BadgeDollarSign className="pill-icon" aria-hidden="true" />
+                  Preço
+                  <ChevronDown className="pill-chevron" aria-hidden="true" />
                 </button>
                 {topMenu === "price" && (
                   <div className="top-popover price-popover">
-                    <div className="popover-title"><b>Preço</b><span>+</span></div>
+                    <div className="popover-title"><b>Preço</b></div>
                     <div className="price-slider">
-                      <div className="dual-range">
+                      <div className="dual-range" style={{"--range-start": `${minPct}%`, "--range-end": `${maxPct}%`} as React.CSSProperties}>
+                        <span className="range-base" />
+                        <span className="range-active" />
                         <input aria-label="Preço mínimo" type="range" min="50000" max="250000" step="5000" value={priceMin} onChange={(e)=>{setPriceMin(Math.min(Number(e.target.value), priceMax-5000));setPageNumber(1)}} />
                         <input aria-label="Preço máximo" type="range" min="50000" max="250000" step="5000" value={priceMax} onChange={(e)=>{setPriceMax(Math.max(Number(e.target.value), priceMin+5000));setPageNumber(1)}} />
                       </div>
@@ -138,12 +145,13 @@ export default function SeminovosPage() {
 
               <div className="top-filter-anchor">
                 <button className={`pill ${topMenu === "brand" ? "selected" : ""}`} onClick={()=>toggleTopMenu("brand")} aria-expanded={topMenu === "brand"}>
-                  Marca <span>⌄</span>
+                  <CarFront className="pill-icon" aria-hidden="true" />
+                  Marca
+                  <ChevronDown className="pill-chevron" aria-hidden="true" />
                 </button>
                 {topMenu === "brand" && (
                   <div className="top-popover brand-popover">
-                    <div className="popover-title"><b>Marca</b><span>−</span></div>
-                    <label className="brand-search"><Search aria-hidden="true" /><input placeholder="Buscar por marca" /></label>
+                    <div className="popover-title"><b>Marca</b></div>
                     <div className="brand-grid">
                       {brands.map(([name,image])=>(
                         <button className="brand-option" key={name}>
@@ -165,7 +173,8 @@ export default function SeminovosPage() {
 
         <section className="mares-container listing">
           <div className="campaign">
-            <p>Encontre veículos com <b>único dono</b>, <b>garantia</b>, <b>baixa quilometragem</b> e revisões em dia.</p>
+            <p className="campaign-desktop">Encontre veículos com <b>único dono</b>, <b>garantia</b>, <b>baixa quilometragem</b> e revisões em dia.</p>
+            <p className="campaign-mobile"><b>Seminovos com diferenciais que importam.</b><br/>Único dono, garantia, baixa km e revisões em dia.</p>
             <button onClick={openFilters}>Explorar diferenciais</button>
             <span className="campaign-close">×</span>
           </div>
@@ -179,6 +188,11 @@ export default function SeminovosPage() {
               {appliedFilters.map(filter => (
                 <button key={filter} onClick={()=>removeAppliedFilter(filter)}>{filter} <span>×</span></button>
               ))}
+              {priceApplied && (
+                <button onClick={()=>{setPriceMin(50000);setPriceMax(240000);setBelowFipe(false);setPageNumber(1)}}>
+                  R$ {priceMin.toLocaleString("pt-BR")}–{priceMax.toLocaleString("pt-BR")} <span>×</span>
+                </button>
+              )}
             </div>
             <label className="sort">Ordenar por <select defaultValue="relevantes"><option value="relevantes">Mais relevantes</option></select></label>
           </div>
