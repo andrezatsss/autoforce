@@ -5,3 +5,110 @@
 
 @media(max-width:1100px){.main-nav{gap:16px}.search-shell{flex-wrap:wrap}.search-strip{height:auto;padding:24px 0}.search-box{width:100%}.quick-filters{flex:1}.vehicle-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:780px){.main-nav{display:none}.talk-button{font-size:0}.talk-button .wa{font-size:18px}.campaign{height:auto;min-height:62px;padding:14px 48px 14px 16px;flex-wrap:wrap;justify-content:flex-start}.results-head{height:auto;padding:24px 0;flex-wrap:wrap}.applied{order:3;flex-basis:100%}.listing-layout{grid-template-columns:1fr}.sidebar{display:none}.vehicle-grid{grid-template-columns:1fr}.quick-filters{gap:8px;overflow:auto}.stock-button{width:100%}}
+
+
+/* Pixel calibration — Figma node 11:11071 */
+.listing-layout{
+  grid-template-columns:274px 894px;
+  width:1180px;
+  max-width:100%;
+  align-items:start;
+}
+.listing-layout.no-sidebar{
+  grid-template-columns:894px;
+}
+.vehicle-grid{
+  grid-template-columns:repeat(3,282px);
+  gap:24px;
+  width:894px;
+  align-items:start;
+}
+.vehicle-card{
+  width:282px;
+  height:476.203125px;
+  border-radius:12px;
+}
+.vehicle-image{
+  width:280px;
+  height:195.703125px;
+  margin:0;
+}
+.vehicle-body{
+  width:280px;
+  height:278.5px;
+  padding:16px;
+}
+.vehicle-topline{
+  width:248px;
+  height:25px;
+}
+.vehicle-card h3{
+  height:35.5px;
+  margin:0;
+  padding-top:4px;
+  font-size:21px;
+  line-height:31.5px;
+}
+.vehicle-card .version{
+  width:257.65625px;
+  height:19px;
+  padding-top:2px;
+  overflow:hidden;
+}
+.mini-specs{
+  width:257.65625px;
+  height:27px;
+  padding-top:12px;
+  gap:8px;
+}
+.trust-lines{
+  width:248px;
+  height:70px;
+  min-height:70px;
+  margin-top:14px;
+  padding:12px 0;
+}
+.price-row{
+  width:248px;
+  height:56px;
+  padding-top:13px;
+}
+.price-row strong{
+  font-size:18px;
+  line-height:27px;
+}
+.price-row a{
+  padding:4px 0;
+}
+
+/* Keep desktop card geometry from expanding when sidebar is hidden. */
+.no-sidebar .vehicle-grid{
+  grid-template-columns:repeat(3,282px);
+  width:894px;
+}
+
+@media(max-width:1180px){
+  .listing-layout{
+    width:100%;
+    grid-template-columns:274px minmax(0,1fr);
+  }
+  .vehicle-grid{
+    width:auto;
+    grid-template-columns:repeat(3,282px);
+    overflow-x:auto;
+    padding-bottom:8px;
+  }
+}
+@media(max-width:780px){
+  .vehicle-grid{
+    grid-template-columns:282px;
+    justify-content:center;
+    width:100%;
+  }
+  .vehicle-card{
+    width:282px;
+    height:476.203125px;
+  }
+  .vehicle-image{width:280px;height:195.703125px}
+  .vehicle-body{width:280px;height:278.5px}
+}
