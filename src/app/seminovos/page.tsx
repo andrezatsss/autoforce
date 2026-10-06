@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
 const FIGMA_ASSET = "https://www.figma.com/api/mcp/asset/cbd494da-0bfa-4d11-ac85-7046610af8e7";
 
@@ -24,12 +25,12 @@ export default function SeminovosPage() {
     <div className="mares-page">
       <header className="mares-header">
         <div className="mares-container header-content">
-          <a className="brand" href="/seminovos" aria-label="Marés Automóveis">
+          <Link className="brand" href="/seminovos" aria-label="Marés Automóveis">
             <span className="brand-mark"><i/><i/><i/></span>
             <span className="brand-copy"><b>marés</b><small>automóveis</small></span>
-          </a>
+          </Link>
           <nav className="main-nav">
-            <a className="active" href="/seminovos">Comprar</a>
+            <Link className="active" href="/seminovos">Comprar</Link>
             <a href="#">Vende</a>
             <a className="finance" href="#">Simular Financiamento <span>⌄</span></a>
             <a href="#">Nossas lojas</a>
@@ -125,7 +126,7 @@ export default function SeminovosPage() {
                     </div>
                     <div className="price-row">
                       <div><small>De <s>{v.oldPrice}</s></small><strong>{v.price}</strong></div>
-                      <a href={`/seminovos/${v.slug}`}>Ver detalhes →</a>
+                      <Link href={`/seminovos/${v.slug}`}>Ver detalhes →</Link>
                     </div>
                   </div>
                 </article>
