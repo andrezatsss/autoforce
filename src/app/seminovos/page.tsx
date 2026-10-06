@@ -1,114 +1,139 @@
+"use client";
+
+import { useState } from "react";
+
+const FIGMA_ASSET = "https://www.figma.com/api/mcp/asset/cbd494da-0bfa-4d11-ac85-7046610af8e7";
+
 const vehicles = [
-  {
-    brand: "TOYOTA",
-    model: "Corolla Altis Premium",
-    version: "2.0 Flex Automático",
-    year: "2024/2025",
-    km: "56.434 km",
-    transmission: "Automático",
-    tags: ["Único dono", "Garantia de fábrica"],
-    trust: ["Laudo cautelar aprovado", "Revisões em dia"],
-    price: "R$ 142.900",
-    slug: "toyota-corolla-altis-premium-2025",
-  },
-  {
-    brand: "HONDA",
-    model: "Civic Touring",
-    version: "1.5 Turbo CVT",
-    year: "2023/2024",
-    km: "31.200 km",
-    transmission: "Automático",
-    tags: ["Baixa km", "Revisado"],
-    trust: ["Laudo cautelar aprovado", "Procedência verificada"],
-    price: "R$ 168.900",
-    slug: "honda-civic-touring-2024",
-  },
-  {
-    brand: "VOLKSWAGEN",
-    model: "T-Cross Highline",
-    version: "250 TSI Automático",
-    year: "2024/2024",
-    km: "22.800 km",
-    transmission: "Automático",
-    tags: ["Baixa km", "IPVA pago"],
-    trust: ["Laudo cautelar aprovado", "Revisões em dia"],
-    price: "R$ 136.900",
-    slug: "volkswagen-t-cross-highline-2024",
-  },
+  { brand:"Toyota", model:"Corolla", version:"Altis Premium 2.0 Flex", year:"2023/2024", km:"21.840 km", transmission:"Automático", tags:["ÚNICO DONO","BAIXA KM"], oldPrice:"R$ 164.000", price:"R$ 142.900", image:`${FIGMA_ASSET}/6b691.png`, count:"1/8", slug:"toyota-corolla-altis-premium-2024" },
+  { brand:"Toyota", model:"Corolla", version:"XEi 2.0 Flex", year:"2023/2024", km:"32.410 km", transmission:"Automático", tags:["GARANTIA","REVISADO"], oldPrice:"R$ 159.000", price:"R$ 139.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/6", slug:"toyota-corolla-xei-2024" },
+  { brand:"Toyota", model:"Corolla", version:"GLi 2.0 Flex", year:"2022/2023", km:"44.180 km", transmission:"Automático", tags:["LAUDO APROVADO"], oldPrice:"R$ 149.000", price:"R$ 132.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/7", slug:"toyota-corolla-gli-2023" },
 ];
 
+const filterSections = [
+  ["Marca", ["Toyota"]],
+  ["Modelo", []],
+  ["Preço", ["Até R$ 150 mil"]],
+  ["Câmbio", ["Automático"]],
+  ["Diferenciais", ["Único dono","Garantia de fábrica","Baixa quilometragem","Revisado na concessionária","Laudo cautelar aprovado","IPVA pago"]],
+] as const;
+
 export default function SeminovosPage() {
+  const [filtersOpen, setFiltersOpen] = useState(true);
   return (
-    <>
-      <header className="header">
-        <div className="container header-inner">
-          <div className="logo">Marés Automóveis</div>
-          <nav className="nav" aria-label="Navegação principal">
-            <a href="/seminovos">Comprar</a>
-            <a href="#">Vender</a>
-            <a href="#">Simular financiamento</a>
+    <div className="mares-page">
+      <header className="mares-header">
+        <div className="mares-container header-content">
+          <a className="brand" href="/seminovos" aria-label="Marés Automóveis">
+            <span className="brand-mark"><i/><i/><i/></span>
+            <span className="brand-copy"><b>marés</b><small>automóveis</small></span>
+          </a>
+          <nav className="main-nav">
+            <a className="active" href="/seminovos">Comprar</a>
+            <a href="#">Vende</a>
+            <a className="finance" href="#">Simular Financiamento <span>⌄</span></a>
             <a href="#">Nossas lojas</a>
           </nav>
-          <a className="whatsapp" href="#">Fale com a gente</a>
+          <a className="talk-button" href="#"><span className="wa">◉</span> Fale com a gente</a>
         </div>
       </header>
 
-      <main className="container">
-        <section className="hero">
-          <h1>Encontre o seminovo certo para você</h1>
-          <p>Explore o estoque da Marés Automóveis com informações claras para comparar, confiar e avançar na compra.</p>
+      <main>
+        <section className="search-strip">
+          <div className="mares-container search-shell">
+            <label className="search-box">
+              <span className="search-icon">⌕</span>
+              <span className="search-copy">
+                <b>O QUE VOCÊ PROCURA?</b>
+                <input aria-label="Buscar veículo" placeholder="Ex.: Corolla, SUV, automático..." />
+              </span>
+            </label>
 
-          <div className="search-row" aria-label="Filtros de veículos">
-            <input className="control search-main" placeholder="Ex.: Corolla, SUV, automático..." />
-            <select className="control" defaultValue=""><option value="" disabled>Marca</option><option>Toyota</option><option>Honda</option><option>Volkswagen</option></select>
-            <select className="control" defaultValue=""><option value="" disabled>Modelo</option><option>Corolla</option><option>Civic</option><option>T-Cross</option></select>
-            <select className="control" defaultValue=""><option value="" disabled>Preço</option><option>Até R$ 120 mil</option><option>R$ 120–150 mil</option><option>Acima de R$ 150 mil</option></select>
-            <select className="control" defaultValue=""><option value="" disabled>Câmbio</option><option>Automático</option><option>Manual</option></select>
-            <button className="more-filter">Mais filtros</button>
-          </div>
-        </section>
-
-        <section className="banner">
-          <h2>Nem todo seminovo é igual.</h2>
-          <p>Encontre opções com <strong>único dono, garantia, baixa quilometragem e revisões em dia.</strong></p>
-          <button>Explorar diferenciais →</button>
-        </section>
-
-        <section>
-          <div className="listing-head">
-            <div>
-              <h2>180 veículos encontrados</h2>
-              <p>Compare opções e abra os detalhes para avaliar procedência, equipamentos e condições.</p>
+            <div className="quick-filters">
+              <button className="pill"><span className="pill-icon">◒</span>Preço <span>⌄</span></button>
+              <button className="pill selected"><span className="pill-icon">◇</span>Marca <span>⌄</span></button>
+              <button className="pill" onClick={()=>setFiltersOpen(v=>!v)}><span className="pill-icon">≡</span>Mais filtros</button>
             </div>
-            <select className="control" defaultValue="relevance" aria-label="Ordenar">
-              <option value="relevance">Mais relevantes</option>
-              <option value="lowest">Menor preço</option>
-              <option value="highest">Maior preço</option>
-            </select>
-          </div>
 
-          <div className="grid">
-            {vehicles.map((vehicle) => (
-              <article className="card" key={vehicle.slug}>
-                <div className="card-media">Foto do veículo</div>
-                <div className="card-body">
-                  <div className="eyebrow">{vehicle.brand}</div>
-                  <h3>{vehicle.model}</h3>
-                  <div className="version">{vehicle.version}</div>
-                  <div className="specs">
-                    <span>{vehicle.year}</span><span>•</span><span>{vehicle.km}</span><span>•</span><span>{vehicle.transmission}</span>
-                  </div>
-                  <div className="tags">{vehicle.tags.map((tag) => <span className="tag" key={tag}>{tag}</span>)}</div>
-                  <div className="trust">{vehicle.trust.map((item) => <span key={item}>✓ {item}</span>)}</div>
-                  <div className="price">{vehicle.price}</div>
-                  <a className="details" href={`/seminovos/${vehicle.slug}`}>Ver detalhes →</a>
-                </div>
-              </article>
-            ))}
+            <button className="stock-button">Buscar no estoque <span>→</span></button>
           </div>
         </section>
-        <div className="footer-space" />
+
+        <section className="mares-container listing">
+          <div className="campaign">
+            <span className="campaign-icon">🚙</span>
+            <p>Encontre veículos com <b>único dono</b>, <b>garantia</b>, <b>baixa quilometragem</b> e revisões em dia.</p>
+            <button>Explorar diferenciais</button>
+            <span className="campaign-close">×</span>
+          </div>
+
+          <div className="results-head">
+            <div className="result-count">
+              <b>7 veículos encontrados</b>
+              <span>Opções selecionadas para você</span>
+            </div>
+            <div className="applied">
+              <button>Toyota <span>×</span></button>
+              <button>Corolla <span>×</span></button>
+            </div>
+            <label className="sort">Ordenar por <select defaultValue="relevantes"><option value="relevantes">Mais relevantes</option></select></label>
+          </div>
+
+          <div className={`listing-layout ${filtersOpen ? "" : "no-sidebar"}`}>
+            {filtersOpen && (
+              <aside className="sidebar">
+                <div className="sidebar-title">
+                  <div><span>Refine sua busca</span><h2>Filtros</h2></div>
+                  <button onClick={()=>setFiltersOpen(false)}>×</button>
+                </div>
+                {filterSections.map(([title,items])=>(
+                  <div className="filter-section" key={title}>
+                    <div className="filter-title"><b>{title}</b><span>{items.length ? "−" : "+"}</span></div>
+                    {items.map((item,i)=>(
+                      <label className="check-row" key={item}>
+                        <input type="checkbox" defaultChecked={(title==="Marca"||title==="Preço") && i===0}/>
+                        <span>{item}</span><small>180</small>
+                      </label>
+                    ))}
+                  </div>
+                ))}
+                <button className="apply-button">Aplicar filtros</button>
+              </aside>
+            )}
+
+            <div className="vehicle-grid">
+              {vehicles.map((v)=>(
+                <article className="vehicle-card" key={v.slug}>
+                  <div className="vehicle-image">
+                    <img src={v.image} alt={`${v.brand} ${v.model}`} />
+                    <button className="heart" aria-label="Salvar veículo">♡</button>
+                    <span className="image-count">{v.count}</span>
+                  </div>
+                  <div className="vehicle-body">
+                    <div className="vehicle-topline">
+                      <span className="brand-label">{v.brand}</span>
+                      <div className="card-tags">{v.tags.slice(0,2).map(t=><span key={t}>{t}</span>)}</div>
+                    </div>
+                    <h3>{v.model}</h3>
+                    <p className="version">{v.version}</p>
+                    <div className="mini-specs">
+                      <span>▱ {v.year}</span><span>◴ {v.km}</span><span>⌘ {v.transmission}</span>
+                    </div>
+                    <div className="trust-lines">
+                      <span>✓ Revisões na concessionária</span>
+                      <span>✓ Laudo de procedência</span>
+                    </div>
+                    <div className="price-row">
+                      <div><small>De <s>{v.oldPrice}</s></small><strong>{v.price}</strong></div>
+                      <a href={`/seminovos/${v.slug}`}>Ver detalhes →</a>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
       </main>
-    </>
+    </div>
   );
 }
