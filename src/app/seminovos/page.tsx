@@ -47,13 +47,13 @@ export default function SeminovosPage() {
   const [belowFipe, setBelowFipe] = useState(false);
   const filtersRef = useRef<HTMLElement>(null);
   const pageSize = 6;
-  const totalPages = Math.max(1, Math.ceil(filteredVehicles.length / pageSize));
   const filteredVehicles = vehicles.filter((vehicle) => {
     const numericPrice = Number(vehicle.price.replace(/\D/g, ""));
     const inRange = numericPrice >= priceMin && numericPrice <= priceMax;
-    const belowFipeMatch = !belowFipe || Number(vehicle.price.replace(/\D/g, "")) < Number(vehicle.oldPrice.replace(/\D/g, ""));
+    const belowFipeMatch = !belowFipe || numericPrice < Number(vehicle.oldPrice.replace(/\D/g, ""));
     return inRange && belowFipeMatch;
   });
+  const totalPages = Math.max(1, Math.ceil(filteredVehicles.length / pageSize));
   const visibleVehicles = filteredVehicles.slice((pageNumber - 1) * pageSize, pageNumber * pageSize);
 
   useEffect(() => {
