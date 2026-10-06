@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Link from "next/link";
+import { BadgeDollarSign, CalendarDays, CarFront, Check, Gauge, Search, SlidersVertical } from "lucide-react";
 
 const FIGMA_ASSET = "https://www.figma.com/api/mcp/asset/cbd494da-0bfa-4d11-ac85-7046610af8e7";
 
@@ -21,6 +22,14 @@ const filterSections = [
 
 export default function SeminovosPage() {
   const [filtersOpen, setFiltersOpen] = useState(true);
+  const filtersRef = useRef<HTMLElement>(null);
+
+  const openFilters = () => {
+    setFiltersOpen(true);
+    window.setTimeout(() => {
+      filtersRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 0);
+  };
   return (
     <div className="mares-page">
       <header className="mares-header">
@@ -43,7 +52,7 @@ export default function SeminovosPage() {
         <section className="search-strip">
           <div className="mares-container search-shell">
             <label className="search-box">
-              <span className="search-icon">⌕</span>
+              <Search className="search-icon" aria-hidden="true" />
               <span className="search-copy">
                 <b>O QUE VOCÊ PROCURA?</b>
                 <input aria-label="Buscar veículo" placeholder="Ex.: Corolla, SUV, automático..." />
@@ -51,9 +60,9 @@ export default function SeminovosPage() {
             </label>
 
             <div className="quick-filters">
-              <button className="pill"><span className="pill-icon">◒</span>Preço <span>⌄</span></button>
-              <button className="pill selected"><span className="pill-icon">◇</span>Marca <span>⌄</span></button>
-              <button className="pill" onClick={()=>setFiltersOpen(v=>!v)}><span className="pill-icon">≡</span>Mais filtros</button>
+              <button className="pill"><BadgeDollarSign className="pill-icon" aria-hidden="true" />Preço <span>⌄</span></button>
+              <button className="pill selected"><CarFront className="pill-icon" aria-hidden="true" />Marca <span>⌄</span></button>
+              <button className="pill" onClick={openFilters}><SlidersVertical className="pill-icon" aria-hidden="true" />Mais filtros</button>
             </div>
 
             <button className="stock-button">Buscar no estoque <span>→</span></button>
@@ -62,9 +71,8 @@ export default function SeminovosPage() {
 
         <section className="mares-container listing">
           <div className="campaign">
-            <span className="campaign-icon">🚙</span>
             <p>Encontre veículos com <b>único dono</b>, <b>garantia</b>, <b>baixa quilometragem</b> e revisões em dia.</p>
-            <button>Explorar diferenciais</button>
+            <button onClick={openFilters}>Explorar diferenciais</button>
             <span className="campaign-close">×</span>
           </div>
 
@@ -82,7 +90,7 @@ export default function SeminovosPage() {
 
           <div className={`listing-layout ${filtersOpen ? "" : "no-sidebar"}`}>
             {filtersOpen && (
-              <aside className="sidebar">
+              <aside className="sidebar" ref={filtersRef}>
                 <div className="sidebar-title">
                   <div><span>Refine sua busca</span><h2>Filtros</h2></div>
                   <button onClick={()=>setFiltersOpen(false)}>×</button>
@@ -107,7 +115,6 @@ export default function SeminovosPage() {
                 <article className="vehicle-card" key={v.slug}>
                   <div className="vehicle-image">
                     <img src={v.image} alt={`${v.brand} ${v.model}`} />
-                    <button className="heart" aria-label="Salvar veículo">♡</button>
                     <span className="image-count">{v.count}</span>
                   </div>
                   <div className="vehicle-body">
@@ -118,11 +125,13 @@ export default function SeminovosPage() {
                     <h3>{v.model}</h3>
                     <p className="version">{v.version}</p>
                     <div className="mini-specs">
-                      <span>▱ {v.year}</span><span>◴ {v.km}</span><span>⌘ {v.transmission}</span>
+                      <span><CalendarDays aria-hidden="true" />{v.year}</span>
+                      <span><Gauge aria-hidden="true" />{v.km}</span>
+                      <span><SlidersVertical aria-hidden="true" />{v.transmission}</span>
                     </div>
                     <div className="trust-lines">
-                      <span>✓ Revisões na concessionária</span>
-                      <span>✓ Laudo de procedência</span>
+                      <span><Check aria-hidden="true" />Revisões na concessionária</span>
+                      <span><Check aria-hidden="true" />Laudo de procedência</span>
                     </div>
                     <div className="price-row">
                       <div><small>De <s>{v.oldPrice}</s></small><strong>{v.price}</strong></div>
