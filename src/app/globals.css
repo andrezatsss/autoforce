@@ -363,3 +363,27 @@
  .vehicle-about{height:auto;padding-bottom:40px}.about-grid{grid-template-columns:1fr}.history-section{height:auto;grid-template-columns:1fr;padding-bottom:100px}.history-footer{position:static;grid-column:1;margin-top:20px}
  .related-grid{grid-template-columns:1fr}.related-card{width:100%}
 }
+
+
+/* Fill listing width when the left filter sidebar is closed */
+.listing-layout.no-sidebar{
+  grid-template-columns:1fr;
+  width:1180px;
+}
+.listing-layout.no-sidebar .vehicle-grid{
+  width:1180px;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:24px;
+}
+.listing-layout.no-sidebar .vehicle-card{
+  width:100%;
+}
+.listing-layout.no-sidebar .vehicle-image,
+.listing-layout.no-sidebar .vehicle-body{
+  width:100%;
+}
+.listing-layout.no-sidebar .vehicle-topline,
+.listing-layout.no-sidebar .trust-lines,
+.listing-layout.no-sidebar .price-row{
+  width:100%;
+}
