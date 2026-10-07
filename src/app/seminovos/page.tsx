@@ -17,14 +17,17 @@ import { FaWhatsapp } from "react-icons/fa6";
 const FIGMA_ASSET = "https://www.figma.com/api/mcp/asset/cbd494da-0bfa-4d11-ac85-7046610af8e7";
 
 const vehicles = [
-  { brand:"Toyota", model:"Corolla", version:"Altis Premium 2.0 Flex", year:"2023/2024", km:"21.840 km", transmission:"CVT", tags:["ÚNICO DONO","BAIXA KM"], checks:["Revisões na concessionária","IPVA 2026 pago"], oldPrice:"R$ 164.000", price:"R$ 142.900", image:`${FIGMA_ASSET}/3f23c.png`, count:"1/8", slug:"toyota-corolla-altis-premium-2024" },
-  { brand:"Toyota", model:"Corolla", version:"XEi 2.0 Flex", year:"2023/2024", km:"32.410 km", transmission:"CVT", tags:["GARANTIA","REVISADO"], checks:["Garantia de fábrica vigente","Histórico de manutenção"], oldPrice:"R$ 159.000", price:"R$ 139.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/6", slug:"toyota-corolla-xei-2024" },
-  { brand:"Toyota", model:"Corolla", version:"GLi 2.0 Flex", year:"2022/2023", km:"44.180 km", transmission:"CVT", tags:["LAUDO APROVADO"], checks:["Laudo cautelar aprovado","Documentação regular"], oldPrice:"R$ 149.000", price:"R$ 132.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/7", slug:"toyota-corolla-gli-2023" },
-  { brand:"Honda", model:"Civic", version:"Touring 1.5 Turbo", year:"2023/2024", km:"28.750 km", transmission:"CVT", tags:["BAIXA KM","REVISADO"], checks:["Baixa quilometragem","Revisão recente"], oldPrice:"R$ 178.900", price:"R$ 166.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/5", slug:"honda-civic-touring-2024" },
-  { brand:"Volkswagen", model:"T-Cross", version:"Highline 250 TSI", year:"2023/2024", km:"35.600 km", transmission:"Automático", tags:["ÚNICO DONO"], checks:["Único proprietário","IPVA 2026 pago"], oldPrice:"R$ 154.900", price:"R$ 143.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/9", slug:"volkswagen-t-cross-highline-2024" },
-  { brand:"Chevrolet", model:"Tracker", version:"Premier 1.2 Turbo", year:"2022/2023", km:"41.900 km", transmission:"Automático", tags:["LAUDO APROVADO"], checks:["Procedência verificada","Pneus revisados"], oldPrice:"R$ 129.900", price:"R$ 119.900", image:`${FIGMA_ASSET}/3f23c.png`, count:"1/7", slug:"chevrolet-tracker-premier-2023" },
-  { brand:"Hyundai", model:"HB20S", version:"Platinum 1.0 TGDI", year:"2023/2024", km:"39.200 km", transmission:"Automático", tags:["GARANTIA","ÚNICO DONO"], checks:["Garantia de fábrica","Manual e chave reserva"], oldPrice:"R$ 112.900", price:"R$ 104.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/6", slug:"hyundai-hb20s-platinum-2024" },
-  { brand:"Fiat", model:"Argo", version:"Drive 1.3 Flex", year:"2023/2024", km:"36.500 km", transmission:"Manual", tags:["REVISADO"], checks:["Revisão em dia","Documentação regular"], oldPrice:"R$ 88.900", price:"R$ 82.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/5", slug:"fiat-argo-drive-2024" },
+  { brand:"Toyota", model:"Corolla", version:"Altis Premium 2.0 Flex", year:"2023/2024", km:"21.840 km", transmission:"CVT", tags:["ÚNICO DONO","BAIXA KM"], checks:["Revisões na concessionária","IPVA 2026 pago"], differentials:["Único dono","Baixa quilometragem","Revisado","IPVA pago"], oldPrice:"R$ 164.000", price:"R$ 142.900", image:`${FIGMA_ASSET}/3f23c.png`, count:"1/8", slug:"toyota-corolla-altis-premium-2024" },
+  { brand:"Toyota", model:"Corolla", version:"XEi 2.0 Flex", year:"2023/2024", km:"32.410 km", transmission:"CVT", tags:["GARANTIA","REVISADO"], checks:["Garantia de fábrica vigente","Histórico de manutenção"], differentials:["Garantia de fábrica","Revisado"], oldPrice:"R$ 159.000", price:"R$ 139.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/6", slug:"toyota-corolla-xei-2024" },
+  { brand:"Toyota", model:"Corolla", version:"GLi 2.0 Flex", year:"2022/2023", km:"44.180 km", transmission:"CVT", tags:["LAUDO APROVADO"], checks:["Laudo cautelar aprovado","Documentação regular"], differentials:["Laudo aprovado"], oldPrice:"R$ 149.000", price:"R$ 132.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/7", slug:"toyota-corolla-gli-2023" },
+  { brand:"Honda", model:"Civic", version:"Touring 1.5 Turbo", year:"2023/2024", km:"28.750 km", transmission:"CVT", tags:["BAIXA KM","REVISADO"], checks:["Baixa quilometragem","Revisão recente"], differentials:["Baixa quilometragem","Revisado"], oldPrice:"R$ 178.900", price:"R$ 166.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/5", slug:"honda-civic-touring-2024" },
+  { brand:"Volkswagen", model:"T-Cross", version:"Highline 250 TSI", year:"2023/2024", km:"35.600 km", transmission:"Automático", tags:["ÚNICO DONO"], checks:["Único proprietário","IPVA 2026 pago"], differentials:["Único dono","IPVA pago"], oldPrice:"R$ 154.900", price:"R$ 143.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/9", slug:"volkswagen-t-cross-highline-2024" },
+  { brand:"Chevrolet", model:"Tracker", version:"Premier 1.2 Turbo", year:"2022/2023", km:"41.900 km", transmission:"Automático", tags:["LAUDO APROVADO"], checks:["Procedência verificada","Pneus revisados"], differentials:["Laudo aprovado"], oldPrice:"R$ 129.900", price:"R$ 119.900", image:`${FIGMA_ASSET}/3f23c.png`, count:"1/7", slug:"chevrolet-tracker-premier-2023" },
+  { brand:"Hyundai", model:"HB20S", version:"Platinum 1.0 TGDI", year:"2023/2024", km:"39.200 km", transmission:"Automático", tags:["GARANTIA","ÚNICO DONO"], checks:["Garantia de fábrica","Manual e chave reserva"], differentials:["Garantia de fábrica","Único dono"], oldPrice:"R$ 112.900", price:"R$ 104.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/6", slug:"hyundai-hb20s-platinum-2024" },
+  { brand:"Fiat", model:"Argo", version:"Drive 1.3 Flex", year:"2023/2024", km:"36.500 km", transmission:"Manual", tags:["REVISADO"], checks:["Revisão em dia","Documentação regular"], differentials:["Revisado"], oldPrice:"R$ 88.900", price:"R$ 82.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/5", slug:"fiat-argo-drive-2024" },
+  { brand:"Ford", model:"Territory", version:"Titanium 1.5 EcoBoost", year:"2023/2024", km:"27.300 km", transmission:"Automático", tags:["BAIXA KM","GARANTIA"], checks:["Baixa quilometragem","Garantia de fábrica vigente"], differentials:["Baixa quilometragem","Garantia de fábrica"], oldPrice:"R$ 189.900", price:"R$ 176.900", image:`${FIGMA_ASSET}/3f23c.png`, count:"1/6", slug:"ford-territory-titanium-2024" },
+  { brand:"Mitsubishi", model:"Eclipse Cross", version:"HPE-S 1.5 Turbo", year:"2022/2023", km:"38.600 km", transmission:"CVT", tags:["LAUDO APROVADO","REVISADO"], checks:["Laudo cautelar aprovado","Revisão recente"], differentials:["Laudo aprovado","Revisado"], oldPrice:"R$ 174.900", price:"R$ 161.900", image:`${FIGMA_ASSET}/04b69.png`, count:"1/7", slug:"mitsubishi-eclipse-cross-hpes-2023" },
+  { brand:"Jeep", model:"Compass", version:"Longitude T270", year:"2023/2024", km:"33.100 km", transmission:"Automático", tags:["ÚNICO DONO","IPVA PAGO"], checks:["Único proprietário","IPVA 2026 pago"], differentials:["Único dono","IPVA pago"], oldPrice:"R$ 169.900", price:"R$ 157.900", image:`${FIGMA_ASSET}/e025c.png`, count:"1/8", slug:"jeep-compass-longitude-2024" },
 ];
 
 const brands = [
@@ -39,7 +42,7 @@ const brands = [
   ["Jeep","https://www.figma.com/api/mcp/asset/ee426edf-ac82-4bef-ab71-6f65f79218f3/25e57.png"],
 ] as const;
 
-const modelOptions = ["Corolla","Civic","T-Cross","Tracker","HB20S","Argo"];
+const modelOptions = ["Corolla","Civic","T-Cross","Tracker","HB20S","Argo","Territory","Eclipse Cross","Compass"];
 const transmissionOptions = ["Automático","CVT","Manual"];
 const differentialOptions = ["Único dono","Garantia de fábrica","Baixa quilometragem","Revisado","Laudo aprovado","IPVA pago"];
 
@@ -74,10 +77,9 @@ export default function SeminovosPage() {
     const brandMatch = !selectedBrand || vehicle.brand === selectedBrand;
     const modelMatch = selectedModels.length === 0 || selectedModels.includes(vehicle.model);
     const transmissionMatch = selectedTransmissions.length === 0 || selectedTransmissions.includes(vehicle.transmission);
-    const differentialMatch = selectedDifferentials.length === 0 || selectedDifferentials.every((item) => {
-      const searchable = [...vehicle.tags, ...vehicle.checks].join(" ").toLowerCase();
-      return searchable.includes(item.toLowerCase().replace("de fábrica","").replace("quilometragem","km").replace("aprovado",""));
-    });
+    const differentialMatch = selectedDifferentials.length === 0 || selectedDifferentials.every((item) =>
+      vehicle.differentials.includes(item)
+    );
     const query = searchQuery.trim().toLowerCase();
     const searchMatch = !query || [vehicle.brand,vehicle.model,vehicle.version,vehicle.transmission,...vehicle.tags].join(" ").toLowerCase().includes(query);
     return inRange && belowFipeMatch && brandMatch && modelMatch && transmissionMatch && differentialMatch && searchMatch;
@@ -91,7 +93,7 @@ export default function SeminovosPage() {
 
   const countModel = (model:string) => vehicles.filter(v=>v.model===model).length;
   const countTransmission = (transmission:string) => vehicles.filter(v=>v.transmission===transmission).length;
-  const countDifferential = (label:string) => vehicles.filter(v => [...v.tags,...v.checks].join(" ").toLowerCase().includes(label.toLowerCase().split(" ")[0])).length;
+  const countDifferential = (label:string) => vehicles.filter(v => v.differentials.includes(label)).length;
 
   useEffect(() => {
     const closeTopMenuOnScroll = () => setTopMenu(null);
