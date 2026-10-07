@@ -1239,3 +1239,27 @@
 @media(max-width:780px){
   .exit-modal-overlay{display:none}
 }
+
+
+/* Exit modal alignment refinement */
+.exit-modal{
+  text-align:center;
+}
+.exit-modal-kicker,
+.exit-modal h2,
+.exit-modal-copy,
+.exit-modal-easter{
+  margin-left:auto;
+  margin-right:auto;
+}
+.exit-modal h2,
+.exit-modal-copy{
+  text-align:center;
+}
+.exit-modal-actions{
+  justify-content:center;
+  align-items:center;
+}
+.exit-modal-easter{
+  text-align:center;
+}
