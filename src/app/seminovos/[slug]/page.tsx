@@ -6,8 +6,9 @@ import { useState } from "react";
 import {
   CalendarDays, Gauge, SlidersHorizontal, Fuel, Car, PaintBucket, Signpost,
   UserRound, Wrench, ShieldCheck, Heart, GitCompareArrows, Check, ChevronRight,
-  CircleDollarSign, ArrowLeftRight, MessageCircle
+  CircleDollarSign, ArrowLeftRight
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
 
 const gallery = [
   "https://www.figma.com/api/mcp/asset/5b1a45e2-799c-4976-8253-31a2bfb8a72d.png",
@@ -70,10 +71,10 @@ export default function VehicleDetailPage() {
           <nav className="main-nav">
             <Link className="active" href="/seminovos">Comprar</Link>
             <a href="#">Vende</a>
-            <a className="finance" href="#">Simular Financiamento <span>⌄</span></a>
+            <a className="finance" href="#">Simular Financiamento</a>
             <a href="#">Nossas lojas</a>
           </nav>
-          <a className="talk-button" href="#"><MessageCircle size={19}/> Fale com a gente</a>
+          <a className="talk-button" href="#"><FaWhatsapp aria-hidden="true" /> Fale com a gente</a>
         </div>
       </header>
 
@@ -111,7 +112,7 @@ export default function VehicleDetailPage() {
             </div>
 
             <div className="detail-price"><small>De <s>{data.oldPrice}</s></small><strong>{data.price}</strong></div>
-            <a className="detail-whatsapp" href="#"><MessageCircle size={19}/>Conversar sobre este carro</a>
+            <a className="detail-whatsapp" href="#"><FaWhatsapp aria-hidden="true" />Conversar sobre este carro</a>
             <div className="detail-actions">
               <button><Heart size={17}/>Favoritar</button>
               <button><GitCompareArrows size={17}/>Comparar</button>
