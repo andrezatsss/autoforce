@@ -66,6 +66,8 @@ export default function SeminovosPage() {
   const [exitModalOpen, setExitModalOpen] = useState(false);
   const exitIntentShown = useRef(false);
   const filtersRef = useRef<HTMLElement>(null);
+  const desktopDifferentialsRef = useRef<HTMLDivElement>(null);
+  const mobileDifferentialsRef = useRef<HTMLDivElement>(null);
 
   const pageSize = 6;
   const priceApplied = priceMin !== 50000 || priceMax !== 240000 || belowFipe;
@@ -133,6 +135,21 @@ export default function SeminovosPage() {
     window.setTimeout(() => filtersRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 0);
   };
 
+  const openDifferentialFilters = () => {
+    setTopMenu(null);
+    if (window.matchMedia("(max-width: 780px)").matches) {
+      setMobileFiltersOpen(true);
+      window.setTimeout(() => {
+        mobileDifferentialsRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 120);
+      return;
+    }
+    setFiltersOpen(true);
+    window.setTimeout(() => {
+      desktopDifferentialsRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 80);
+  };
+
   const chooseBrand = (brand:string) => {
     setSelectedBrand(current => current === brand ? null : brand);
     setPageNumber(1);
@@ -144,7 +161,7 @@ export default function SeminovosPage() {
     setPageNumber(1);
   };
 
-  const FilterContent = () => (
+  const FilterContent = ({ mobile = false }: { mobile?: boolean }) => (
     <>
       <div className="filter-section">
         <div className="filter-title"><b>Modelo</b><span>−</span></div>
@@ -164,7 +181,7 @@ export default function SeminovosPage() {
           </label>
         ))}
       </div>
-      <div className="filter-section">
+      <div className="filter-section" ref={mobile ? mobileDifferentialsRef : desktopDifferentialsRef}>
         <div className="filter-title"><b>Diferenciais</b><span>−</span></div>
         {differentialOptions.map(item=>(
           <label className="check-row" key={item}>
@@ -262,7 +279,7 @@ export default function SeminovosPage() {
             <div className="campaign">
               <p className="campaign-desktop">Encontre veículos com <b>único dono</b>, <b>garantia</b>, <b>baixa quilometragem</b> e revisões em dia.</p>
               <p className="campaign-mobile"><b>Seminovos com diferenciais que importam.</b></p>
-              <button onClick={openFilters}>Explorar</button>
+              <button onClick={openDifferentialFilters}>Explorar</button>
               <button className="campaign-close" aria-label="Fechar banner" onClick={()=>setBannerVisible(false)}>×</button>
             </div>
           )}
@@ -362,7 +379,7 @@ export default function SeminovosPage() {
               <div><span>Refine sua busca</span><h2>Filtros</h2></div>
               <button onClick={()=>setMobileFiltersOpen(false)}>×</button>
             </div>
-            <div className="mobile-filter-scroll"><FilterContent /></div>
+            <div className="mobile-filter-scroll"><FilterContent mobile /></div>
             <button className="apply-button mobile-apply" onClick={()=>setMobileFiltersOpen(false)}>Aplicar filtros</button>
           </aside>
         </div>
