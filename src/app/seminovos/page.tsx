@@ -11,8 +11,8 @@ import {
   Gauge,
   Search,
   SlidersVertical,
-  MessageCircle,
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa6";
 
 const FIGMA_ASSET = "https://www.figma.com/api/mcp/asset/cbd494da-0bfa-4d11-ac85-7046610af8e7";
 
@@ -59,6 +59,7 @@ export default function SeminovosPage() {
   const [selectedDifferentials, setSelectedDifferentials] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<"relevant" | "lowest">("relevant");
   const [searchQuery, setSearchQuery] = useState("");
+  const [bannerVisible, setBannerVisible] = useState(true);
   const filtersRef = useRef<HTMLElement>(null);
 
   const pageSize = 6;
@@ -168,10 +169,10 @@ export default function SeminovosPage() {
           <nav className="main-nav">
             <Link className="active" href="/seminovos">Comprar</Link>
             <a href="#">Vende</a>
-            <a className="finance" href="#">Simular Financiamento <span>⌄</span></a>
+            <a className="finance" href="#">Simular Financiamento</a>
             <a href="#">Nossas lojas</a>
           </nav>
-          <a className="talk-button" href="#"><MessageCircle size={19} aria-hidden="true" /> Fale com a gente</a>
+          <a className="talk-button" href="#"><FaWhatsapp aria-hidden="true" /> Fale com a gente</a>
         </div>
       </header>
 
@@ -239,12 +240,14 @@ export default function SeminovosPage() {
         </section>
 
         <section className="mares-container listing">
-          <div className="campaign">
-            <p className="campaign-desktop">Encontre veículos com <b>único dono</b>, <b>garantia</b>, <b>baixa quilometragem</b> e revisões em dia.</p>
-            <p className="campaign-mobile"><b>Seminovos com diferenciais que importam.</b></p>
-            <button onClick={openFilters}>Explorar</button>
-            <span className="campaign-close">×</span>
-          </div>
+          {bannerVisible && (
+            <div className="campaign">
+              <p className="campaign-desktop">Encontre veículos com <b>único dono</b>, <b>garantia</b>, <b>baixa quilometragem</b> e revisões em dia.</p>
+              <p className="campaign-mobile"><b>Seminovos com diferenciais que importam.</b></p>
+              <button onClick={openFilters}>Explorar</button>
+              <button className="campaign-close" aria-label="Fechar banner" onClick={()=>setBannerVisible(false)}>×</button>
+            </div>
+          )}
 
           <div className="results-head">
             <div className="result-count">
