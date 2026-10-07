@@ -63,6 +63,8 @@ export default function SeminovosPage() {
   const [sortBy, setSortBy] = useState<"relevant" | "lowest">("relevant");
   const [searchQuery, setSearchQuery] = useState("");
   const [bannerVisible, setBannerVisible] = useState(true);
+  const [exitModalOpen, setExitModalOpen] = useState(false);
+  const exitIntentShown = useRef(false);
   const filtersRef = useRef<HTMLElement>(null);
 
   const pageSize = 6;
@@ -99,6 +101,20 @@ export default function SeminovosPage() {
     const closeTopMenuOnScroll = () => setTopMenu(null);
     window.addEventListener("scroll", closeTopMenuOnScroll, { passive: true });
     return () => window.removeEventListener("scroll", closeTopMenuOnScroll);
+  }, []);
+
+  useEffect(() => {
+    const onExitIntent = (event: MouseEvent) => {
+      if (window.matchMedia("(max-width: 780px)").matches) return;
+      if (exitIntentShown.current) return;
+      if (event.clientY <= 4 && !event.relatedTarget) {
+        exitIntentShown.current = true;
+        setExitModalOpen(true);
+        setTopMenu(null);
+      }
+    };
+    document.addEventListener("mouseout", onExitIntent);
+    return () => document.removeEventListener("mouseout", onExitIntent);
   }, []);
 
   useEffect(() => {
@@ -319,6 +335,25 @@ export default function SeminovosPage() {
           </nav>
         </section>
       </main>
+
+      {exitModalOpen && (
+        <div className="exit-modal-overlay" role="presentation" onMouseDown={()=>setExitModalOpen(false)}>
+          <section className="exit-modal" role="dialog" aria-modal="true" aria-labelledby="exit-modal-title" onMouseDown={(e)=>e.stopPropagation()}>
+            <button className="exit-modal-close" aria-label="Fechar" onClick={()=>setExitModalOpen(false)}>×</button>
+            <span className="exit-modal-kicker">Antes de ir...</span>
+            <h2 id="exit-modal-title">Que tal experimentar esse carro na prática?</h2>
+            <p className="exit-modal-copy">Agende um test drive e continue a avaliação com mais segurança antes de decidir.</p>
+            <div className="exit-modal-actions">
+              <button className="exit-modal-primary" onClick={()=>setExitModalOpen(false)}>Quero agendar um test drive</button>
+              <button className="exit-modal-secondary" onClick={()=>setExitModalOpen(false)}>Continuar explorando</button>
+            </div>
+            <div className="exit-modal-easter">
+              <b>Easter egg para os avaliadores 👋</b>
+              <p>Ainda não defini qual hipótese valeria testar aqui. Minha ideia seria usar este momento para tentar recuperar alguém inclinado a sair da página, oferecendo algo que ainda não apareceu na jornada — por exemplo, um test drive.</p>
+            </div>
+          </section>
+        </div>
+      )}
 
       {mobileFiltersOpen && (
         <div className="mobile-filter-overlay" role="dialog" aria-modal="true" aria-label="Filtros">
