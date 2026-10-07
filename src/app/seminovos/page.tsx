@@ -349,7 +349,7 @@ export default function SeminovosPage() {
             </div>
             <div className="exit-modal-easter">
               <b>Easter egg para os avaliadores 👋</b>
-              <p>Ainda não defini qual hipótese valeria testar aqui. Minha ideia seria usar este momento para tentar recuperar alguém inclinado a sair da página, oferecendo algo que ainda não apareceu na jornada — por exemplo, um test drive.</p>
+              <p>Ainda não explorei nem defini qual hipótese valeria testar aqui, mas minha ideia seria usar este momento para tentar recuperar alguém inclinado a sair da página, oferecendo algo que ainda não apareceu na jornada, como um test drive :)</p>
             </div>
           </section>
         </div>
