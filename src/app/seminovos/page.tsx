@@ -365,7 +365,7 @@ export default function SeminovosPage() {
               <button className="exit-modal-secondary" onClick={()=>setExitModalOpen(false)}>Continuar explorando</button>
             </div>
             <div className="exit-modal-easter">
-              <b>Easter egg para os avaliadores 👋</b>
+              <b>Nota para avaliadores</b>
               <p>Ainda não explorei nem defini qual hipótese valeria testar aqui, mas minha ideia seria usar este momento para tentar recuperar alguém inclinado a sair da página, oferecendo algo que ainda não apareceu na jornada, como um test drive :)</p>
             </div>
           </section>
